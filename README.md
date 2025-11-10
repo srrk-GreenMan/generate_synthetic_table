@@ -1,0 +1,2 @@
+# generate_synthetic_table
+generate_synthetic_table
