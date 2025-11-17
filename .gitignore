@@ -1,0 +1,14 @@
+.python-version
+.venv/*
+__pycache__/*
+.ipynb_checkpoints/*
+*.pyc
+.DS_Store
+.vscode/*
+.idea/*
+.env
+.env.*
+data/
+logs/
+output/
+notebooks/
