@@ -46,7 +46,7 @@ def _call_llm(llm: ChatOpenAI, prompt: str, *, image_url: str | None = None) -> 
 
     content: List[Dict[str, str]] = [{"type": "text", "text": prompt}]
     if image_url:
-        content.append({"type": "image_url", "image_url": image_url})
+        content.append({"type": "image_url", "image_url": {"url": image_url}})
 
     response = llm.invoke([HumanMessage(content=content)])
     return response.content if isinstance(response.content, str) else json.dumps(response.content)
@@ -67,6 +67,7 @@ def image_to_html_node(llm: ChatOpenAI):
             "결과는 <table>...</table> 형태의 순수 HTML 문자열만 반환하세요."
         )
         html = _call_llm(llm, prompt, image_url=_encode_image(image_path))
+        print(f"Done extracting HTML table from image: {image_path}")
         return {**state, "html_table": html}
 
     return _node
@@ -87,6 +88,7 @@ def parse_contents_node(llm: ChatOpenAI):
             f"HTML:\n{html}"
         )
         summary = _call_llm(llm, prompt)
+        print("Done summarizing table contents.")
         return {**state, "table_summary": summary}
 
     return _node
@@ -113,6 +115,7 @@ def generate_synthetic_table_node(llm: ChatOpenAI):
             "최종 결과는 <table>...</table> HTML 문자열 하나만 출력하세요."
         )
         synthetic_html = _call_llm(llm, prompt)
+        print("Done generating synthetic table.")
         return {**state, "synthetic_table": synthetic_html}
 
     return _node
@@ -136,6 +139,7 @@ def self_reflection_node(llm: ChatOpenAI):
             f"합성 표:\n{synthetic_html}"
         )
         reflection = _call_llm(llm, prompt)
+        print("Done with self-reflection on synthetic table.")
         return {**state, "reflection": reflection}
 
     return _node

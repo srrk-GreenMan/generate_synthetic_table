@@ -47,6 +47,7 @@ def run_flow_for_image(
     if not os.getenv("OPENAI_API_KEY"):
         msg = "OPENAI_API_KEY is not set. Add it to a .env file or your environment."
         raise RuntimeError(msg)
+    print(f"Processing image: {image} with model: {model} and temperature: {temperature}")
 
     return run_synthetic_table_flow(str(image), model=model, temperature=temperature)
 
