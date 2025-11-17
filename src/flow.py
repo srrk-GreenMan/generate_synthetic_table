@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import base64
 import json
+import os
 from pathlib import Path
 from typing import Dict, List, TypedDict
 
 from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
+from dotenv import load_dotenv
 
 
 class TableState(TypedDict, total=False):
@@ -159,6 +161,11 @@ def build_synthetic_table_graph(llm: ChatOpenAI) -> StateGraph:
 
 def run_synthetic_table_flow(image_path: str, *, model: str = "gpt-4.1-mini", temperature: float = 0.2) -> TableState:
     """Execute the synthetic table flow for a single image path."""
+
+    load_dotenv()
+    if not os.getenv("OPENAI_API_KEY"):
+        msg = "OPENAI_API_KEY is not set. Add it to a .env file or your environment."
+        raise RuntimeError(msg)
 
     llm = ChatOpenAI(model=model, temperature=temperature)
     app = build_synthetic_table_graph(llm).compile()

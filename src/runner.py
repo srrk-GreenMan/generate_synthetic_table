@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 from .flow import TableState, run_synthetic_table_flow
 
@@ -39,6 +42,11 @@ def run_flow_for_image(
     image: Path, *, model: str = "gpt-4.1-mini", temperature: float = 0.2
 ) -> TableState:
     """Execute the synthetic table flow for a given image path."""
+
+    load_dotenv()
+    if not os.getenv("OPENAI_API_KEY"):
+        msg = "OPENAI_API_KEY is not set. Add it to a .env file or your environment."
+        raise RuntimeError(msg)
 
     return run_synthetic_table_flow(str(image), model=model, temperature=temperature)
 

@@ -13,11 +13,23 @@ LangGraph 기반의 Agentic 플로우를 이용해 한국어 표 이미지를 �
 
 ## 설치
 
+프로젝트 루트에 `.env` 파일을 만들고 OpenAI 키를 설정합니다.
+
 ```bash
-pip install -r requirements.txt
+echo "OPENAI_API_KEY=sk-..." > .env
 ```
 
-OpenAI API 키가 `OPENAI_API_KEY` 환경 변수에 설정되어 있어야 합니다.
+의존성은 `pyproject.toml`을 통해 관리되므로 원하는 패키지 매니저로 설치합니다. `uv`를 사용하는 경우:
+
+```bash
+uv sync
+```
+
+또는 일반 `pip`를 사용할 경우:
+
+```bash
+pip install .
+```
 
 ## 사용법
 
