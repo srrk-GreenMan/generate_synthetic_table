@@ -24,11 +24,13 @@ OpenAI API 키가 `OPENAI_API_KEY` 환경 변수에 설정되어 있어야 합�
 명령행 인터페이스를 이용해 플로우를 실행할 수 있습니다.
 
 ```bash
-python -m src.cli /path/to/table-image.png --save-json result.json
+python main.py /path/to/table-image.png --save-json result.json
 ```
 
 - `--model`: 사용할 OpenAI 모델 이름 (기본값: `gpt-4.1-mini`)
 - `--temperature`: 모델 온도 (기본값: `0.2`)
 - `--save-json`: 최종 상태를 JSON 파일로 저장합니다.
+
+`main.py`는 내부의 `src.runner` 모듈을 사용해 동일한 로직을 실행하므로, 다른 스크립트나 노트북에서도 `run_flow_for_image` 함수를 가져다가 간단히 재사용할 수 있습니다.
 
 실행 결과에는 HTML 표, 내용 요약, 합성 표, 자기 점검 결과가 포함됩니다.
