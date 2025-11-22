@@ -15,10 +15,5 @@ dependencies = [
 requires = ["hatchling>=1.18.0"]
 build-backend = "hatchling.build"
 
-[tool.hatch.build]
-include = [
-  "src/prompts/*.txt",
-]
-
 [tool.uv]
 package = true
