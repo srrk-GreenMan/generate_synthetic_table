@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 from generate_synthetic_table.runner import build_arg_parser, run_with_args
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
 
 
 def main() -> None:

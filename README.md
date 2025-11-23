@@ -77,9 +77,14 @@ pip install .
 명령행 인터페이스를 이용해 플로우를 실행할 수 있습니다.
 
 ```bash
-python main.py /path/to/table-image.png --save-json result.json
+# 기본 실행 (결과를 result.json 및 관련 파일로 저장)
+python main.py I_table_78.png --save-json result.json
+
+# 모델 및 옵션 지정
+python main.py I_table_78.png --model gpt-4o --temperature 0.1 --save-json output.json
 ```
 
+- `image_path`: (필수) 변환할 표 이미지 파일 경로
 - `--model`: 사용할 OpenAI 모델 이름 (기본값: `gpt-4.1-mini`)
 - `--temperature`: 모델 온도 (기본값: `0.2`)
 - `--save-json`: 최종 상태를 JSON 파일로 저장합니다. (파생된 HTML 및 JSON 파일들도 함께 저장됩니다)

@@ -20,6 +20,11 @@ def build_arg_parser() -> argparse.ArgumentParser:
         description="Generate a synthetic HTML table from a Korean table image using LangGraph.",
     )
     parser.add_argument(
+        "image",
+        type=Path,
+        help="Path to the input table image",
+    )
+    parser.add_argument(
         "--provider",
         default="openai",
         choices=["openai", "gemini", "vllm"],
@@ -94,8 +99,6 @@ def _filter_json_safe_state(state: TableState, *, html_paths: Iterable[tuple[str
         "image_path": state.get("image_path"),
         "table_summary": state.get("table_summary"),
         "reflection": state.get("reflection"),
-        "table_summary": state.get("table_summary"),
-        "reflection": state.get("reflection"),
         "errors": state.get("errors"),
         "synthetic_json": state.get("synthetic_json"),
     }
@@ -121,7 +124,6 @@ def run_with_args(args: argparse.Namespace) -> TableState:
     html_refs: list[tuple[str, Path | None]] = []
     if args.save_json:
         base = args.save_json.with_suffix("")
-        parsed_html_path = base.with_name(base.name + "_parsed.html")
         parsed_html_path = base.with_name(base.name + "_parsed.html")
         synthetic_html_path = base.with_name(base.name + "_synthetic.html")
         synthetic_json_path = base.with_name(base.name + "_synthetic.json")

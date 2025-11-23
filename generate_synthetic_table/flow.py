@@ -83,6 +83,7 @@ def image_to_html_node(llm: ChatOpenAI) -> Callable[[TableState], TableState]:
     prompt = _load_prompt("image_to_html")
 
     def _node(state: TableState) -> TableState:
+        logger.info("Entering node: image_to_html")
         
         if state.get("errors"):
             return state
@@ -109,6 +110,7 @@ def parse_contents_node(llm: ChatOpenAI) -> Callable[["TableState"], "TableState
     prompt_template = _load_prompt("parse_contents")
 
     def _node(state: "TableState") -> "TableState":
+        logger.info("Entering node: parse_contents")
         if state.get("errors"):
             return state
         html = state.get("html_table")
@@ -137,6 +139,7 @@ def generate_synthetic_table_node(llm: ChatOpenAI) -> Callable[["TableState"], "
     prompt_template = _load_prompt("generate_synthetic_table")
 
     def _node(state: "TableState") -> "TableState":
+        logger.info("Entering node: generate_synthetic_table")
         if state.get("errors"):
             return state
         html = state.get("html_table")
@@ -174,6 +177,7 @@ def self_reflection_node(llm: ChatOpenAI) -> Callable[[TableState], TableState]:
     prompt_template = _load_prompt("self_reflection")
 
     def _node(state: TableState) -> TableState:
+        logger.info("Entering node: self_reflection")
         if state.get("errors"):
             return state
 
@@ -217,6 +221,7 @@ def revise_synthetic_table_node(llm: ChatOpenAI) -> Callable[[TableState], Table
     prompt_template = _load_prompt("revise_synthetic_table")
 
     def _node(state: TableState) -> TableState:
+        logger.info("Entering node: revise_synthetic_table")
         if state.get("errors"):
             return state
 
@@ -255,6 +260,7 @@ def parse_synthetic_table_node(llm: ChatOpenAI) -> Callable[[TableState], TableS
     prompt_template = _load_prompt("parse_synthetic_table")
 
     def _node(state: TableState) -> TableState:
+        logger.info("Entering node: parse_synthetic_table")
         if state.get("errors"):
             return state
 

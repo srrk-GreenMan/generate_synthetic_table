@@ -31,12 +31,15 @@ def get_llm(
     provider = provider.lower()
 
     if provider == "openai":
-        return ChatOpenAI(
-            model=model,
-            temperature=temperature,
-            api_key=api_key,  # type: ignore
-            base_url=base_url,
-        )
+        kwargs = {
+            "model": model,
+            "temperature": temperature,
+            "base_url": base_url,
+        }
+        if api_key:
+            kwargs["api_key"] = api_key
+
+        return ChatOpenAI(**kwargs)
 
     elif provider == "gemini":
         if not os.getenv("GOOGLE_API_KEY") and not api_key:
